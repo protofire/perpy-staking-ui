@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css'
 import Head from 'next/head'
 import { Box, Link, Typography } from '@mui/material'
 import { Badge } from './Badge'
+import { Card } from './Card'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -44,6 +45,21 @@ export const Layout = ({ children }: { children: ReactNode }) => {
         />
         <Badge value="45.72%" label="APR" img="/apr.svg" />
         <Badge value="$764.280" label="Total Earned" img="/earnings.svg" />
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'stretch',
+          gap: '24px',
+          paddingTop: '36px',
+        }}
+      >
+        <Card
+          title="Stake xPRY"
+          subTitle="Get 2x weight in the staking pool."
+        />
+        <Card title="Stake PRY" subTitle="Get 1x weight in the staking pool." />
+        <Card title="Rewards" img="/coins.svg" highlight />
       </Box>
       {children}
     </div>

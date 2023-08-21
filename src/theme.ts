@@ -26,6 +26,13 @@ export const theme = createTheme({
       lineHeight: '56.02px',
       color: '#fff',
     },
+    h5: {
+      fontSize: '24px',
+      fontWeight: 400,
+      lineHeight: '32px',
+      color: '#fff',
+      letterSpacing: 0.15,
+    },
     h6: {
       fontSize: '20px',
       fontWeight: 400,
