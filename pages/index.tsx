@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 import { Layout } from '../src/Layout'
 
 const Home: NextPage = () => {
-  return <Layout>Test</Layout>
+  return <Layout> </Layout>
 }
 
 export default Home

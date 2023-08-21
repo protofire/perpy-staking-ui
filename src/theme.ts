@@ -26,6 +26,14 @@ export const theme = createTheme({
       lineHeight: '56.02px',
       color: '#fff',
     },
+    h6: {
+      fontSize: '20px',
+      fontWeight: 400,
+      lineHeight: '32px',
+      color: '#fff',
+      letterSpacing: 0.15,
+    },
+
     body1: {
       fontSize: '14px',
       fontWeight: 400,
@@ -38,7 +46,7 @@ export const theme = createTheme({
   palette: {
     text: {
       primary: '#fff',
-      secondary: '#fff',
+      secondary: '#AC57E9',
     },
     primary: {
       main: '#2196F3',

@@ -3,6 +3,7 @@ import { Navbar } from './Navbar'
 import styles from '../styles/Home.module.css'
 import Head from 'next/head'
 import { Box, Link, Typography } from '@mui/material'
+import { Badge } from './Badge'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -20,6 +21,29 @@ export const Layout = ({ children }: { children: ReactNode }) => {
           Stake your PRY and xPRY to earn real yield in the form of PRY.{' '}
           <Link>Learn more</Link>
         </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'stretch',
+          gap: '24px',
+          paddingTop: '36px',
+        }}
+      >
+        <Badge
+          value="55.032"
+          subValue="$42.209"
+          label="Staked xPRY"
+          img="/vault.svg"
+        />
+        <Badge
+          value="620.144"
+          subValue="$930.781"
+          label="Staked PRY"
+          img="/vault.svg"
+        />
+        <Badge value="45.72%" label="APR" img="/apr.svg" />
+        <Badge value="$764.280" label="Total Earned" img="/earnings.svg" />
       </Box>
       {children}
     </div>
