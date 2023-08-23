@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/material'
 import { Logo } from './Logo'
-import { ConnectButton } from './ConnectButton'
+import { ConnectButton } from './Buttons/ConnectButton'
 
 const Ol = styled('ol')(({ theme }) => ({
   display: 'flex',
