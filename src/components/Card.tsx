@@ -8,6 +8,7 @@ type HighlightProps = BoxProps & {
   highlight?: boolean
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BorderBox = styled(({ highlight, ...props }: HighlightProps) => (
   <Box {...props} />
 ))<HighlightProps>`
@@ -37,6 +38,7 @@ const BorderBox = styled(({ highlight, ...props }: HighlightProps) => (
     `}
 `
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledBox = styled(({ highlight, ...props }: HighlightProps) => (
   <Box {...props} />
 ))<HighlightProps>`
@@ -67,44 +69,46 @@ const StyledBox = styled(({ highlight, ...props }: HighlightProps) => (
   background-clip: padding-box;
 `
 
-interface CardProps {
+type CardProps = Parameters<typeof BorderBox>[0] & {
   title: string
   subTitle?: string
-  highlight?: boolean
   img?: string
   children?: React.ReactNode
 }
 
 export const Card = (props: CardProps) => {
+  const { children, highlight, title, subTitle, img, ...boxProps } = props
+
   return (
-    <BorderBox highlight={props.highlight ? true : undefined}>
+    <BorderBox {...boxProps} highlight={highlight ? true : undefined}>
       <StyledBox
-        highlight={props.highlight ? true : undefined}
+        highlight={highlight ? true : undefined}
         sx={{
-          padding: !!props.subTitle ? '10px 16px' : '20px 26px',
+          padding: !!subTitle ? '10px 16px' : '20px 26px',
         }}
       >
         <Typography
           variant="h5"
           sx={{
             paddingBottom: '4px',
+            ...(highlight && {
+              lineHeight: '133.4%',
+            }),
           }}
         >
-          {props.title}
+          {title}
         </Typography>
-        {!!props.subTitle && (
-          <Typography color="#E6E0E9">{props.subTitle}</Typography>
-        )}
+        {!!subTitle && <Typography color="#E6E0E9">{subTitle}</Typography>}
 
         <Box
           sx={{
             paddingTop: '24px',
           }}
         >
-          {props.children}
+          {children}
         </Box>
       </StyledBox>
-      {!!props.img && (
+      {!!img && (
         <Box
           sx={{
             position: 'absolute',
@@ -112,7 +116,7 @@ export const Card = (props: CardProps) => {
             right: '32px',
           }}
         >
-          <Image src={props.img} width={165} height={76} alt="card-image" />
+          <Image src={img} width={165} height={76} alt="card-image" />
         </Box>
       )}
     </BorderBox>

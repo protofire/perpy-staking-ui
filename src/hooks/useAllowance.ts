@@ -27,8 +27,6 @@ export const useAllowance = (
     data: allowance,
     isError,
     isLoading,
-    fetchStatus,
-    status,
     error,
   } = useContractRead({
     address: tokenAddress,
@@ -46,5 +44,6 @@ export const useAllowance = (
       : undefined,
     isError,
     isLoading,
+    error,
   }
 }
