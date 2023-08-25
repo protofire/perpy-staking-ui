@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { ReactNode, createContext, useContext, useState } from 'react'
 import { Transaction } from 'viem'
 
 export const TransactionContext = createContext<{
@@ -6,10 +6,12 @@ export const TransactionContext = createContext<{
   addTransaction: (transaction: Transaction) => void
 }>({
   transactions: [],
-  addTransaction: (transaction: Transaction) => {},
+  addTransaction: () => {
+    throw new Error('addTransaction must be used within a TransactionProvider')
+  },
 })
 
-export const TransactionProvider = ({ children }: any) => {
+export const TransactionProvider = ({ children }: { children: ReactNode }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
   const addTransaction = (transaction: Transaction) => {

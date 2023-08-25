@@ -1,15 +1,8 @@
 .container {
   padding: 0 2rem;
-  background: radial-gradient(
-      at 0% 100%,
-      rgb(115, 56, 162) 0%,
-      rgba(75, 34, 112, 1) 12%,
-      transparent 40%
-    ),
-    linear-gradient(#0b021f 65%, #4b2270 100%);
-
   padding: 64px 136px;
   min-height: 100vh;
+  max-width: 1440px;
 }
 
 .main {

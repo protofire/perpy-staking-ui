@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material'
 import { styled } from '@mui/system'
-import vaults from '../public/vaults.svg'
 
 const BorderBox = styled(Box)`
   background: linear-gradient(180deg, #6419b7 0%, rgba(100, 25, 183, 0) 100%);

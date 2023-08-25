@@ -1,4 +1,4 @@
-import { PaletteColorOptions, alpha, createTheme, darken } from '@mui/material'
+import { alpha, createTheme, darken } from '@mui/material'
 import { Tilt_Warp, Inter, Roboto } from 'next/font/google'
 
 declare module '@mui/material/Button' {
@@ -8,7 +8,7 @@ declare module '@mui/material/Button' {
   }
 }
 
-const tiltWrap = Tilt_Warp({ subsets: ['latin'] })
+export const tiltWrap = Tilt_Warp({ subsets: ['latin'] })
 const inter = Inter({ subsets: ['latin'] })
 const roboto = Roboto({ subsets: ['latin'], weight: '500' })
 
