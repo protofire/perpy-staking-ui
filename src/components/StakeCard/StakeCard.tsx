@@ -7,10 +7,7 @@ import { AmountOperation } from '../AmountOperation'
 import { Card } from '../Card'
 import pryABI from '../../abi/pryABI.json'
 import { normalize } from '../../utils'
-import {
-  PRY_TOKEN_ADDRESS,
-  vPRY_TOKEN_ADDRESS,
-} from '../../consts/known-tokens'
+import { PRY_TOKEN, VPRY_TOKEN } from '../../consts/known-tokens'
 import {
   STAKING_CONTRACT_ADDRESS,
   TOKEN_MANAGER_CONTRACT_ADDRESS,
@@ -33,7 +30,7 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
   const account = useAccount()
 
   const tokenAddress = useMemo(
-    () => (vested ? vPRY_TOKEN_ADDRESS : PRY_TOKEN_ADDRESS),
+    () => (vested ? VPRY_TOKEN.address : PRY_TOKEN.address),
     [vested],
   )
 
@@ -69,7 +66,7 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
       functionName: 'depositDividend',
       enabled: amount > 0,
     }),
-    [],
+    [vested],
   )
 
   const unstakeConfig = useCallback(
@@ -80,7 +77,7 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
       functionName: 'unstake',
       enabled: amount > 0,
     }),
-    [],
+    [vested],
   )
 
   const handleOnStakeSuccess = useCallback(
@@ -100,25 +97,28 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
         })
       }
     },
-    [decimals, symbol],
+    [decimals, symbol, enqueueSnackbar],
   )
 
-  const handleOnUnstakeSuccess = (tx?: TransactionReceipt) => {
-    if (tx) {
-      const event = decodeUnstakeLogs(tx)
+  const handleOnUnstakeSuccess = useCallback(
+    (tx?: TransactionReceipt) => {
+      if (tx) {
+        const event = decodeUnstakeLogs(tx)
 
-      const msg = `Staked ${normalize(
-        (event.data.args as { amount: bigint }).amount,
-        decimals,
-      )} ${symbol} successfully!`
+        const msg = `Staked ${normalize(
+          (event.data.args as { amount: bigint }).amount,
+          decimals,
+        )} ${symbol} successfully!`
 
-      enqueueSnackbar(msg, {
-        variant: 'success',
-        autoHideDuration: 20000,
-        action: <TransactionLink hash={tx.transactionHash} />,
-      })
-    }
-  }
+        enqueueSnackbar(msg, {
+          variant: 'success',
+          autoHideDuration: 20000,
+          action: <TransactionLink hash={tx.transactionHash} />,
+        })
+      }
+    },
+    [decimals, symbol, enqueueSnackbar],
+  )
 
   return (
     <Card

@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { UsePrepareContractWriteConfig } from 'wagmi'
 import { TransactionReceipt, parseUnits } from 'viem'
 import BigNumber from 'bignumber.js'
@@ -24,7 +24,6 @@ interface AmountOperationProps {
   disabled?: boolean
   error?: Error | null
   requiresApproval?: boolean
-  successMessage?: (tx?: TransactionReceipt) => string
   onSuccess?: (tx?: TransactionReceipt) => void
 }
 
@@ -43,7 +42,6 @@ export const AmountOperation = (props: AmountOperationProps) => {
     error,
     requiresApproval = true,
     onSuccess,
-    successMessage,
   } = props
   const [amount, setAmount] = useState<number>(0)
   const isClient = useIsClient()

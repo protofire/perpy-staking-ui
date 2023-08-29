@@ -7,9 +7,10 @@ import { Badge } from './Badge'
 import { Card } from './Card'
 import { ApproveButton } from './Buttons/ApproveButton'
 import { RewardsBanner } from './RewardsBanner'
-import { VestingBanner } from './VestingBanner'
 import { StakeCard } from './StakeCard/StakeCard'
 import { StakedBadge } from './Badges/StakedBadge'
+import { TotalEarnedBadge } from './Badges/TotalEarnedBadge'
+import { VestingCard } from './VestinCard/VestingCard'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -59,7 +60,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
           <StakedBadge symbol="PRY" />
 
           <Badge value="45.72%" label="APR" img="/apr.svg" />
-          <Badge value="$764.280" label="Total Earned" img="/earnings.svg" />
+          <TotalEarnedBadge />
         </Box>
         <Box
           sx={{
@@ -110,51 +111,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
             paddingTop: '36px',
           }}
         >
-          <Card
-            title="Vesting"
-            subTitle="Vested xPRY is entitled to 50% of the real yield."
-            sx={{
-              flex: '1 0 66%',
-            }}
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                gap: '10px',
-                justifyContent: 'stretch',
-                width: '100%',
-              }}
-            >
-              <VestingBanner
-                value="15 days"
-                title="Min. Vesting"
-                sx={{
-                  flex: '1 1 auto',
-                }}
-              />
-              <VestingBanner
-                value="180 days"
-                title="Max. Vesting"
-                sx={{
-                  flex: '1 1 auto',
-                }}
-              />
-              <VestingBanner
-                value="50%"
-                title="Min. Ratio"
-                sx={{
-                  flex: '1 1 auto',
-                }}
-              />
-              <VestingBanner
-                value="100%"
-                title="Max. Ratio"
-                sx={{
-                  flex: '1 1 auto',
-                }}
-              />
-            </Box>
-          </Card>
+          <VestingCard />
           <Card
             title="Conversion"
             subTitle="Customize your vesting schedule."

@@ -5,8 +5,7 @@ import { erc20ABI } from 'wagmi'
 import { useAllowance } from '../../hooks/useAllowance'
 import BigNumber from 'bignumber.js'
 import { ETH_DECIMALS } from '../../consts/consts'
-import { use, useEffect, useMemo, useState } from 'react'
-import { TransactionReceipt } from 'viem'
+import { useMemo } from 'react'
 import { useSnackbar } from 'notistack'
 import { TransactionLink } from '../TransactionLink'
 
@@ -38,7 +37,7 @@ export const ApproveButton = ({
   const { data: token } = useToken({ address: tokenAddress })
 
   const {
-    allowance,
+    allowance = BigInt(0),
     isError: allowanceIsError,
     isLoading: allowanceIsLoading,
     error: allowanceError,
@@ -113,7 +112,7 @@ export const ApproveButton = ({
       fullWidth={fullWidth}
       loadingText="Approving..."
       config={aprrovalConfig}
-      disabled={allowanceIsLoading}
+      disabled={allowanceIsLoading || allowanceIsError}
       error={error ?? allowanceError}
       onSuccess={handleApprovalSuccess}
     >

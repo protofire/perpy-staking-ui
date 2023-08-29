@@ -1,6 +1,7 @@
+import { ContractMeta, ContractsConfig } from '../types'
 import { wagmiConfig } from '../wagmi.config'
 
-const CONTRACTS: ContractsConfig = {
+const CONTRACTS: ContractsConfig<ContractMeta> = {
   tokenManager: {
     42161: {
       address: '0xa86a14E9E237bA939fBDA8735d8709FAa82173ef',
