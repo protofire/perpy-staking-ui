@@ -7,6 +7,7 @@ import { AmountSlider } from './AmountSlider'
 import { ApproveButton } from './Buttons/ApproveButton'
 import { TransactionButton } from './Buttons/TransactionButton'
 import { waitForTransaction } from '@wagmi/core'
+import { useIsClient } from '../hooks/useIsClient'
 
 interface AmountOperationProps {
   tokenAddress: `0x${string}`
@@ -45,10 +46,7 @@ export const AmountOperation = (props: AmountOperationProps) => {
     successMessage,
   } = props
   const [amount, setAmount] = useState<number>(0)
-  const [isClient, setIsClient] = useState(false)
-  const [transactionReceipt, setTransactionReceipt] = useState<
-    TransactionReceipt | undefined
-  >()
+  const isClient = useIsClient()
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setAmount(newValue as number)
@@ -64,10 +62,6 @@ export const AmountOperation = (props: AmountOperationProps) => {
     }
     setAmount(0)
   }
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
 
   const realConfig = useMemo(
     () =>

@@ -17,6 +17,11 @@ const CONTRACTS: ContractsConfig = {
       address: '0xc881e4bE73945Bc627DD731745916c6FCCe49bE9',
     },
   },
+  camelotPair: {
+    42161: {
+      address: '0x264e2900FdB1F2e28b7A35346aCC650b3d235226',
+    },
+  },
 } as const
 
 export const STAKING_CONTRACT_ADDRESS =
@@ -24,3 +29,6 @@ export const STAKING_CONTRACT_ADDRESS =
 
 export const TOKEN_MANAGER_CONTRACT_ADDRESS =
   CONTRACTS.tokenManager[wagmiConfig.publicClient.chain.id].address
+
+export const CAMELOT_PAIR_CONTRACT_ADDRESS =
+  CONTRACTS.camelotPair[42161].address

@@ -9,6 +9,7 @@ import { ApproveButton } from './Buttons/ApproveButton'
 import { RewardsBanner } from './RewardsBanner'
 import { VestingBanner } from './VestingBanner'
 import { StakeCard } from './StakeCard/StakeCard'
+import { StakedBadge } from './Badges/StakedBadge'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -54,18 +55,9 @@ export const Layout = ({ children }: { children: ReactNode }) => {
             paddingTop: '36px',
           }}
         >
-          <Badge
-            value="55.032"
-            subValue="$42.209"
-            label="Staked xPRY"
-            img="/vault.svg"
-          />
-          <Badge
-            value="620.144"
-            subValue="$930.781"
-            label="Staked PRY"
-            img="/vault.svg"
-          />
+          <StakedBadge symbol="xPRY" vested />
+          <StakedBadge symbol="PRY" />
+
           <Badge value="45.72%" label="APR" img="/apr.svg" />
           <Badge value="$764.280" label="Total Earned" img="/earnings.svg" />
         </Box>

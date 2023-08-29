@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useSnackbar } from 'notistack'
 import BigNumber from 'bignumber.js'
-import { useAccount, useBalance, useContractRead } from 'wagmi'
+import { useAccount, useBalance } from 'wagmi'
 import { Abi, TransactionReceipt } from 'viem'
 import { AmountOperation } from '../AmountOperation'
 import { Card } from '../Card'
@@ -17,6 +17,8 @@ import {
 } from '../../consts/contract-addresses'
 import { TransactionLink } from '../TransactionLink'
 import { decodeStakeLogs, decodeUnstakeLogs } from './utils'
+import { useIsClient } from '../../hooks/useIsClient'
+import { useStaked } from '../../hooks/useStaked'
 
 interface StakeCardProps {
   vested?: boolean
@@ -24,11 +26,7 @@ interface StakeCardProps {
 }
 
 export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  const isClient = useIsClient()
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -55,22 +53,13 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
   const balance = new BigNumber(value.toString()).div(10 ** decimals)
 
   const {
-    data: stakedAmount,
+    data: staked,
     isError: stakedAmountIsError,
     isLoading: stakedAmountIsLoading,
     error: stakedAmountError,
-  } = useContractRead({
-    address: STAKING_CONTRACT_ADDRESS,
-    abi: pryABI as Abi,
-    args: [account.address, '1'],
-    functionName: 'dividendStakedAmount',
-    enabled: !!account.address,
-    watch: true,
+  } = useStaked({
+    vested,
   })
-
-  const stakedAmountNormalized = new BigNumber(
-    stakedAmount?.toString() ?? '0',
-  ).div(10 ** decimals)
 
   const stakeConfig = useCallback(
     (amount: bigint) => ({
@@ -158,7 +147,7 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
         tokenAddress={tokenAddress}
         tokenDecimals={decimals}
         tokenSymbol={symbol}
-        maxAmount={stakedAmountNormalized}
+        maxAmount={staked?.amount ?? new BigNumber(0)}
         disabled={stakedAmountIsError || stakedAmountIsLoading}
         error={stakedAmountError}
         requiresApproval={false}

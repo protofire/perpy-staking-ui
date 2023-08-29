@@ -1,5 +1,6 @@
 import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
+import { useIsClient } from '../../hooks/useIsClient'
 
 type HoverButtonProps = Parameters<typeof Button>[0] & {
   hoverProps?: Parameters<typeof Button>[0]
@@ -7,11 +8,7 @@ type HoverButtonProps = Parameters<typeof Button>[0] & {
 
 export const HoverButton = ({ hoverProps, ...props }: HoverButtonProps) => {
   const ref = useRef<HTMLButtonElement | null>(null)
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  const isClient = useIsClient()
 
   const [buttonProps, setButtonProps] =
     useState<Exclude<HoverButtonProps, 'hoverProps'>>(props)
