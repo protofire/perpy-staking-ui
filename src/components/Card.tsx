@@ -60,7 +60,7 @@ const StyledBox = styled(({ highlight, ...props }: HighlightProps) => (
     rgba(42, 31, 54, 0) 100%
   ),`}
       radial-gradient(
-        50% 50% at calc(100% + 64px) calc(100% - 40px),
+        50% 50% at 340px calc(100% + 100px),
         #6419b7 0%,
         rgba(100, 25, 183, 0) 100%
       ),

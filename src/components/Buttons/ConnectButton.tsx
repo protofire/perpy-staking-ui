@@ -34,7 +34,7 @@ export const ConnectButton = ({ custom, ...props }: ConnectButtonProps) => {
           )
         }
 
-        if (connected) {
+        if (connected && isClient) {
           if (custom) {
             return <Button {...props} />
           }
@@ -52,7 +52,12 @@ export const ConnectButton = ({ custom, ...props }: ConnectButtonProps) => {
         }
 
         return (
-          <Button {...props} variant="default" onClick={openConnectModal}>
+          <Button
+            {...props}
+            variant="default"
+            onClick={openConnectModal}
+            disabled={isClient ? props.disabled : true}
+          >
             CONNECT WALLET
           </Button>
         )

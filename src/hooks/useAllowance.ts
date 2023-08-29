@@ -7,11 +7,11 @@ import {
   useToken,
 } from 'wagmi'
 import { chains } from '../wagmi.config'
-import { ETH_DECIMALS } from '../consts'
+import { ETH_DECIMALS } from '../consts/consts'
 
 export const useAllowance = (
-  tokenAddress: `0x${string}`,
-  spenderAddress: `0x${string}`,
+  tokenAddress?: `0x${string}`,
+  spenderAddress?: `0x${string}`,
 ) => {
   const account = useAccount()
   const chainId = useChainId()
@@ -29,11 +29,16 @@ export const useAllowance = (
     isLoading,
     error,
   } = useContractRead({
+    watch: true,
     address: tokenAddress,
     abi: erc20ABI,
     functionName: 'allowance',
-    args: [account.address ?? zeroAddress, spenderAddress],
-    enabled: !!account.address && isChainSupported,
+    args: [account.address ?? zeroAddress, spenderAddress ?? zeroAddress],
+    enabled:
+      !!tokenAddress &&
+      !!account.address &&
+      !!spenderAddress &&
+      isChainSupported,
     chainId,
   })
 
