@@ -6,9 +6,9 @@ import { Box, Link, Typography } from '@mui/material'
 import { Badge } from './Badge'
 import { Card } from './Card'
 import { ApproveButton } from './Buttons/ApproveButton'
-import { AmountSlider } from './AmountSlider'
 import { RewardsBanner } from './RewardsBanner'
 import { VestingBanner } from './VestingBanner'
+import { StakeCard } from './StakeCard/StakeCard'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -77,74 +77,10 @@ export const Layout = ({ children }: { children: ReactNode }) => {
             paddingTop: '36px',
           }}
         >
-          <Card
-            title="Stake xPRY"
-            subTitle="Get 2x weight in the staking pool."
-          >
-            <AmountSlider
-              valueLabelDisplay="auto"
-              marks={Array.from(Array(9).keys()).map((_, value) => ({
-                value: value * 10 + 10,
-              }))}
-              unit="xPRY"
-            />
-            <ApproveButton
-              tokenAddress="0xfd064A18f3BF249cf1f87FC203E90D8f650f2d63"
-              spenderAddress="0x87Fe8eBa753076a943BD2A5f6c3556188064797E"
-              amount="100"
-              fullWidth
-              sx={{
-                marginBottom: '32px',
-              }}
-            />
-            <AmountSlider
-              valueLabelDisplay="auto"
-              marks={Array.from(Array(9).keys()).map((_, value) => ({
-                value: value * 10 + 10,
-              }))}
-              label="Staked"
-              unit="xPRY"
-            />
-            <ApproveButton
-              tokenAddress="0xfd064A18f3BF249cf1f87FC203E90D8f650f2d63"
-              spenderAddress="0x87Fe8eBa753076a943BD2A5f6c3556188064797E"
-              amount="100"
-              fullWidth
-            />
-          </Card>
+          <StakeCard vested subtitle="Get 2x weight in the staking pool." />
 
-          <Card title="Stake PRY" subTitle="Get 1x weight in the staking pool.">
-            <AmountSlider
-              valueLabelDisplay="auto"
-              marks={Array.from(Array(9).keys()).map((_, value) => ({
-                value: value * 10 + 10,
-              }))}
-              unit="PRY"
-            />
-            <ApproveButton
-              tokenAddress="0xfd064A18f3BF249cf1f87FC203E90D8f650f2d63"
-              spenderAddress="0x87Fe8eBa753076a943BD2A5f6c3556188064797E"
-              amount="100"
-              fullWidth
-              sx={{
-                marginBottom: '32px',
-              }}
-            />
-            <AmountSlider
-              valueLabelDisplay="auto"
-              marks={Array.from(Array(9).keys()).map((_, value) => ({
-                value: value * 10 + 10,
-              }))}
-              label="Staked"
-              unit="PRY"
-            />
-            <ApproveButton
-              tokenAddress="0xfd064A18f3BF249cf1f87FC203E90D8f650f2d63"
-              spenderAddress="0x87Fe8eBa753076a943BD2A5f6c3556188064797E"
-              amount="100"
-              fullWidth
-            />
-          </Card>
+          <StakeCard subtitle="Get 1x weight in the staking pool." />
+
           <Card title="Rewards" img="/coins.svg" highlight>
             <RewardsBanner
               title="Total earned"
@@ -164,7 +100,10 @@ export const Layout = ({ children }: { children: ReactNode }) => {
               }}
             />
             <ApproveButton
-              tokenAddress="0xfd064A18f3BF249cf1f87FC203E90D8f650f2d63"
+              label="Claim"
+              loadingText="Claiming..."
+              config={{}}
+              tokenAddress="0x3fAeDb824A226Af1646dA0ec4dD7fAA3ba736382"
               spenderAddress="0x87Fe8eBa753076a943BD2A5f6c3556188064797E"
               amount="100"
               fullWidth

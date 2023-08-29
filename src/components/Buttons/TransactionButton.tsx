@@ -1,5 +1,4 @@
-import { ReactNode } from 'react'
-import { ConnectButton } from './ConnectButton'
+import { ReactNode, useState } from 'react'
 import {
   UsePrepareContractWriteConfig,
   useAccount,
@@ -8,6 +7,7 @@ import {
   usePrepareContractWrite,
 } from 'wagmi'
 import { chains } from '../../wagmi.config'
+import { ConnectButton } from './ConnectButton'
 import { Box, Typography } from '@mui/material'
 import { parseError } from '../../utils'
 
@@ -17,50 +17,77 @@ export type TransactionButtonProps = Parameters<typeof ConnectButton>[0] & {
   fullWidth?: boolean
   error?: Error | null
   showErrors?: boolean
+  onSuccess?: (hash?: `0x${string}`) => void
 }
 
 export const TransactionButton = (props: TransactionButtonProps) => {
+  const {
+    error,
+    showErrors,
+    sx,
+    children,
+    loadingText,
+    fullWidth,
+    disabled,
+    onSuccess,
+    ...attrs
+  } = props
+
   const account = useAccount()
   const chainId = useChainId()
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
 
   const isChainSupported =
     chains.find((chain) => chain.id === chainId) !== undefined
 
   const { config, error: prepareError } = usePrepareContractWrite({
     ...props.config,
-    enabled: !!account.address && isChainSupported && !props.error,
+    enabled:
+      props.config?.enabled &&
+      !!account.address &&
+      isChainSupported &&
+      !props.error,
   })
 
-  const { isLoading, write, error } = useContractWrite(config)
+  const {
+    isLoading,
+    writeAsync,
+    error: writeError,
+    isSuccess,
+    data,
+  } = useContractWrite(config)
 
-  console.log({
-    error,
-    prepareError,
-  })
+  const execute = async () => {
+    if (props.config?.enabled) {
+      const result = await writeAsync?.()
+      onSuccess?.(result?.hash)
+      setSnackbarOpen(true)
+    }
+  }
 
   return (
     <>
       <ConnectButton
-        {...props}
-        disabled={props.disabled || isLoading}
+        {...attrs}
+        disabled={disabled || isLoading}
         variant="default"
         custom
-        onClick={write}
+        onClick={execute}
         sx={{
-          ...props.sx,
-          width: props.fullWidth ? '100%' : 'auto',
+          ...sx,
+          width: fullWidth ? '100%' : 'auto',
         }}
       >
-        {isLoading ? props.loadingText : props.children}
+        {isLoading ? loadingText : children}
       </ConnectButton>
-      {!!props.showErrors && (!!props.error || !!prepareError || !!error) && (
+      {!!showErrors && (!!error || !!prepareError || !!writeError) && (
         <Box
           sx={{
             textAlign: 'center',
           }}
         >
           <Typography color="error">
-            {parseError(props.error ?? prepareError ?? error)}
+            {parseError(error ?? prepareError ?? writeError)}
           </Typography>
         </Box>
       )}

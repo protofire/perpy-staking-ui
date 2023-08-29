@@ -7,6 +7,11 @@ import '../styles/globals.css'
 import { theme } from '../src/theme'
 import { TransactionProvider } from '../src/contexts/TransactionContext'
 import { chains, wagmiConfig } from '../src/wagmi.config'
+import { SnackbarProvider } from 'notistack'
+
+BigInt.prototype.toJSON = function () {
+  return this.toString()
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,7 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <RainbowKitProvider chains={chains}>
         <TransactionProvider>
           <ThemeProvider theme={theme}>
-            <Component {...pageProps} />
+            <SnackbarProvider maxSnack={3}>
+              <Component {...pageProps} />
+            </SnackbarProvider>
           </ThemeProvider>
         </TransactionProvider>
       </RainbowKitProvider>

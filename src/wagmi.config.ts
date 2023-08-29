@@ -2,7 +2,7 @@ import { getDefaultWallets } from '@rainbow-me/rainbowkit'
 import { arbitrum, arbitrumGoerli } from 'viem/chains'
 import { configureChains, createConfig } from 'wagmi'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
-import { ALCHEMY_API_KEY } from './consts'
+import { ALCHEMY_API_KEY } from './consts/consts'
 
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
