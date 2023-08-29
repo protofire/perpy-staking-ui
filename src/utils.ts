@@ -76,3 +76,14 @@ export function decodeLogs(args: {
     }),
   }))
 }
+
+export const formatCurrency = (value: number | string, currency?: string) => {
+  if (currency === 'USD') {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(Number(value))
+  }
+
+  return new Intl.NumberFormat('en-US').format(Number(value))
+}

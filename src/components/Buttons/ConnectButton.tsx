@@ -2,17 +2,14 @@ import { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import { ConnectButton as RKConnectButton } from '@rainbow-me/rainbowkit'
 import { HoverButton } from './HoverButton'
+import { useIsClient } from '../../hooks/useIsClient'
 
 type ConnectButtonProps = Parameters<typeof Button>[0] & {
   custom?: boolean
 }
 
 export const ConnectButton = ({ custom, ...props }: ConnectButtonProps) => {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  const isClient = useIsClient()
 
   return (
     <RKConnectButton.Custom>

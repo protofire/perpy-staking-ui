@@ -9,6 +9,12 @@ import { TransactionProvider } from '../src/contexts/TransactionContext'
 import { chains, wagmiConfig } from '../src/wagmi.config'
 import { SnackbarProvider } from 'notistack'
 
+declare global {
+  interface BigInt {
+    toJSON(): string
+  }
+}
+
 BigInt.prototype.toJSON = function () {
   return this.toString()
 }
