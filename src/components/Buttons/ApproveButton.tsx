@@ -5,9 +5,11 @@ import { erc20ABI } from 'wagmi'
 import { useAllowance } from '../../hooks/useAllowance'
 import BigNumber from 'bignumber.js'
 import { ETH_DECIMALS } from '../../consts/consts'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useSnackbar } from 'notistack'
 import { TransactionLink } from '../TransactionLink'
+import { IconButton } from '@mui/material'
+import { CloseOutlined } from '@mui/icons-material'
 
 type ApproveButtonProps = Parameters<typeof ConnectButton>[0] & {
   tokenAddress?: `0x${string}`
@@ -18,7 +20,8 @@ type ApproveButtonProps = Parameters<typeof ConnectButton>[0] & {
   loadingText?: string
   label: string
   error?: Error | null
-  onSuccess?: (hash?: `0x${string}`) => void
+  onSuccess?: (hash: `0x${string}`) => void
+  skipApproval?: boolean
 }
 
 export const ApproveButton = ({
@@ -31,9 +34,10 @@ export const ApproveButton = ({
   label,
   error,
   onSuccess,
+  skipApproval,
   ...props
 }: ApproveButtonProps) => {
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const { data: token } = useToken({ address: tokenAddress })
 
   const {
@@ -49,39 +53,81 @@ export const ApproveButton = ({
       .toFixed(0),
   )
 
-  const approved = allowance !== undefined && allowance >= denormalizedAmount
+  const approved =
+    skipApproval || (allowance !== undefined && allowance >= denormalizedAmount)
 
-  const handleApprovalSuccess = (hash?: `0x${string}`) => {
-    enqueueSnackbar(`Approved ${token?.symbol} successfully!`, {
-      variant: 'success',
-      autoHideDuration: 20000,
-      action: hash ? <TransactionLink hash={hash} /> : null,
-    })
-  }
+  const handleSuccess = useCallback(
+    (hash: `0x${string}`) => {
+      if (approved) {
+        onSuccess?.(hash)
+      } else {
+        enqueueSnackbar(`Approved ${token?.symbol} successfully!`, {
+          key: hash,
+          variant: 'success',
+          autoHideDuration: 20000,
+          action: hash ? (
+            <>
+              <TransactionLink hash={hash} />
+              <IconButton
+                onClick={() => closeSnackbar?.(hash)}
+                size="small"
+                sx={{
+                  color: 'white',
+                }}
+              >
+                <CloseOutlined />
+              </IconButton>
+            </>
+          ) : null,
+        })
+      }
+    },
+    [approved, enqueueSnackbar, onSuccess, token?.symbol, closeSnackbar],
+  )
 
-  const handleSuccess = (hash?: `0x${string}`) => {
-    onSuccess?.(hash)
-    enqueueSnackbar(`Approved ${token?.symbol} successfully!`, {
-      variant: 'success',
-      autoHideDuration: 20000,
-      action: hash ? <TransactionLink hash={hash} /> : null,
-    })
-  }
+  const handleFail = useCallback(
+    (e: Error) => {
+      const { details = 'An error occurred!' } = e as {
+        details?: string
+      }
 
-  const aprrovalConfig = useMemo(
-    () => ({
-      address: tokenAddress,
-      abi: erc20ABI,
-      args: [spenderAddress, denormalizedAmount],
-      functionName: 'approve',
-      enabled:
-        !!tokenAddress &&
-        !!spenderAddress &&
-        !!denormalizedAmount &&
-        !allowanceIsLoading &&
-        !allowanceIsError &&
-        !approved,
-    }),
+      enqueueSnackbar(details, {
+        key: 'approve-error',
+        variant: 'error',
+        autoHideDuration: 20000,
+        action: (
+          <IconButton
+            onClick={() => closeSnackbar?.('approve-error')}
+            size="small"
+            sx={{
+              color: 'white',
+            }}
+          >
+            <CloseOutlined />
+          </IconButton>
+        ),
+      })
+    },
+    [enqueueSnackbar, closeSnackbar],
+  )
+
+  const txConfig = useMemo(
+    () =>
+      approved
+        ? config
+        : {
+            address: tokenAddress,
+            abi: erc20ABI,
+            args: [spenderAddress, denormalizedAmount],
+            functionName: 'approve',
+            enabled:
+              !!tokenAddress &&
+              !!spenderAddress &&
+              !!denormalizedAmount &&
+              !allowanceIsLoading &&
+              !allowanceIsError &&
+              !approved,
+          },
     [
       tokenAddress,
       spenderAddress,
@@ -89,34 +135,22 @@ export const ApproveButton = ({
       allowanceIsLoading,
       allowanceIsError,
       approved,
+      config,
     ],
   )
-
-  if (approved) {
-    return (
-      <TransactionButton
-        {...props}
-        fullWidth={fullWidth}
-        loadingText={loadingText}
-        config={config}
-        onSuccess={handleSuccess}
-      >
-        {label}
-      </TransactionButton>
-    )
-  }
 
   return (
     <TransactionButton
       {...props}
       fullWidth={fullWidth}
-      loadingText="Approving..."
-      config={aprrovalConfig}
-      disabled={allowanceIsLoading || allowanceIsError}
+      loadingText={approved ? loadingText : 'Approving...'}
+      config={txConfig}
+      onSuccess={handleSuccess}
+      onFail={handleFail}
+      disabled={allowanceIsLoading || allowanceIsError || props.disabled}
       error={error ?? allowanceError}
-      onSuccess={handleApprovalSuccess}
     >
-      {allowanceIsLoading ? 'Loading...' : 'Approve'}
+      {allowanceIsLoading ? 'Loading...' : approved ? label : 'Approve'}
     </TransactionButton>
   )
 }

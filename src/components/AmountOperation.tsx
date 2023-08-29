@@ -5,7 +5,6 @@ import { TransactionReceipt, parseUnits } from 'viem'
 import BigNumber from 'bignumber.js'
 import { AmountSlider } from './AmountSlider'
 import { ApproveButton } from './Buttons/ApproveButton'
-import { TransactionButton } from './Buttons/TransactionButton'
 import { waitForTransaction } from '@wagmi/core'
 import { useIsClient } from '../hooks/useIsClient'
 
@@ -50,15 +49,14 @@ export const AmountOperation = (props: AmountOperationProps) => {
     setAmount(newValue as number)
   }
 
-  const handleTransactionSuccess = async (hash?: `0x${string}`) => {
-    if (hash) {
-      const receipt = await waitForTransaction({
-        hash,
-      })
-
-      onSuccess?.(receipt)
-    }
+  const handleTransactionSuccess = async (hash: `0x${string}`) => {
     setAmount(0)
+
+    const receipt = await waitForTransaction({
+      hash,
+    })
+
+    onSuccess?.(receipt)
   }
 
   const realConfig = useMemo(
@@ -103,43 +101,25 @@ export const AmountOperation = (props: AmountOperationProps) => {
         max={isClient ? maxAmount.decimalPlaces(2).toNumber() ?? 0 : 0}
         disabled={isClient ? disabled || maxAmount.isZero() : true}
       />
-      {requiresApproval ? (
-        <ApproveButton
-          label={buttonText}
-          loadingText={loadingText}
-          config={realConfig}
-          tokenAddress={tokenAddress}
-          spenderAddress={spenderAddress ?? realConfig.address}
-          amount={amount}
-          disabled={
-            disabled ||
-            maxAmount.isZero() ||
-            amount === 0 ||
-            realConfig.address === undefined ||
-            !realConfig.enabled
-          }
-          error={error}
-          onSuccess={handleTransactionSuccess}
-          fullWidth
-        />
-      ) : (
-        <TransactionButton
-          loadingText={loadingText}
-          config={realConfig}
-          disabled={
-            disabled ||
-            maxAmount.isZero() ||
-            amount === 0 ||
-            realConfig.address === undefined ||
-            !realConfig.enabled
-          }
-          error={error}
-          onSuccess={handleTransactionSuccess}
-          fullWidth
-        >
-          {buttonText}
-        </TransactionButton>
-      )}
+      <ApproveButton
+        label={buttonText}
+        loadingText={loadingText}
+        config={realConfig}
+        tokenAddress={tokenAddress}
+        spenderAddress={spenderAddress ?? realConfig.address}
+        amount={amount}
+        disabled={
+          disabled ||
+          maxAmount.isZero() ||
+          amount === 0 ||
+          realConfig.address === undefined ||
+          !realConfig.enabled
+        }
+        error={error}
+        onSuccess={handleTransactionSuccess}
+        skipApproval={!requiresApproval}
+        fullWidth
+      />
     </Box>
   )
 }

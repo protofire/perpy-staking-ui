@@ -16,6 +16,8 @@ import { TransactionLink } from '../TransactionLink'
 import { decodeStakeLogs, decodeUnstakeLogs } from './utils'
 import { useIsClient } from '../../hooks/useIsClient'
 import { useStaked } from '../../hooks/useStaked'
+import { IconButton } from '@mui/material'
+import { CloseOutlined } from '@mui/icons-material'
 
 interface StakeCardProps {
   vested?: boolean
@@ -25,7 +27,7 @@ interface StakeCardProps {
 export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
   const isClient = useIsClient()
 
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   const account = useAccount()
 
@@ -82,22 +84,44 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
 
   const handleOnStakeSuccess = useCallback(
     (tx?: TransactionReceipt) => {
+      console.log({
+        tx,
+      })
       if (tx) {
         const event = decodeStakeLogs(tx)
 
-        const msg = `Staked ${normalize(
-          (event.data.args as { amount: bigint }).amount,
-          decimals,
-        )} ${symbol} successfully!`
+        const { amount } = event.data.args as {
+          amount: bigint
+        }
+
+        const stakedAmount = normalize(amount, decimals)
+          .minus(staked?.amount ?? 0)
+          .toString()
+
+        const msg = `Staked ${stakedAmount} ${symbol} successfully!`
 
         enqueueSnackbar(msg, {
+          key: tx.transactionHash,
           variant: 'success',
           autoHideDuration: 20000,
-          action: <TransactionLink hash={tx.transactionHash} />,
+          action: (
+            <>
+              <TransactionLink hash={tx.transactionHash} />
+              <IconButton
+                onClick={() => closeSnackbar?.(tx.transactionHash)}
+                size="small"
+                sx={{
+                  color: 'white',
+                }}
+              >
+                <CloseOutlined />
+              </IconButton>
+            </>
+          ),
         })
       }
     },
-    [decimals, symbol, enqueueSnackbar],
+    [decimals, symbol, enqueueSnackbar, staked?.amount, closeSnackbar],
   )
 
   const handleOnUnstakeSuccess = useCallback(
@@ -105,19 +129,38 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
       if (tx) {
         const event = decodeUnstakeLogs(tx)
 
+        const { amount, burnedAmount } = event.data.args as {
+          amount: bigint
+          burnedAmount: bigint
+        }
+
         const msg = `Staked ${normalize(
-          (event.data.args as { amount: bigint }).amount,
+          amount + burnedAmount,
           decimals,
         )} ${symbol} successfully!`
 
         enqueueSnackbar(msg, {
+          key: tx.transactionHash,
           variant: 'success',
           autoHideDuration: 20000,
-          action: <TransactionLink hash={tx.transactionHash} />,
+          action: (
+            <>
+              <TransactionLink hash={tx.transactionHash} />
+              <IconButton
+                onClick={() => closeSnackbar?.(tx.transactionHash)}
+                size="small"
+                sx={{
+                  color: 'white',
+                }}
+              >
+                <CloseOutlined />
+              </IconButton>
+            </>
+          ),
         })
       }
     },
-    [decimals, symbol, enqueueSnackbar],
+    [decimals, symbol, enqueueSnackbar, closeSnackbar],
   )
 
   return (
