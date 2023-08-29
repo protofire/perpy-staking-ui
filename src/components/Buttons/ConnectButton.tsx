@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import { ConnectButton as RKConnectButton } from '@rainbow-me/rainbowkit'
 import { HoverButton } from './HoverButton'

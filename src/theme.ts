@@ -112,14 +112,41 @@ export const theme = createTheme({
             height: '42px',
             padding: ['8px 22px'],
             '&.Mui-disabled': {
-              background: '#2E1E3F',
-              color: '#8525DB',
-              boxShadow:
-                '0px 1px 8px 0px rgba(0, 0, 0, 0.1), 0px -1px 3px 1px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(0, 0, 0, 0.12)',
+              color: 'rgba(0, 0, 0, 0.38)',
+              boxShadow: 'none',
+              background: 'rgba(0, 0, 0, 0.12)',
             },
           },
         },
+        {
+          props: { variant: 'outlined' },
+          style: {
+            color: '#8525DB',
+            fontWeight: 500,
+            fontSize: 15,
+            lineHeight: '26px',
+            letterSpacing: 0.46,
+            fontFamily: roboto.style.fontFamily,
+            borderRadius: '50px',
+            height: '42px',
+            padding: ['8px 22px'],
+            border: '1px solid #8525DB',
+            boxShadow:
+              '0px 3px 1px -2px rgba(0, 0, 0, 0.20), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)',
 
+            '&:hover': {
+              border: '1px solid #8525DB',
+              background: 'rgba(156, 39, 176, 0.04)',
+            },
+
+            '&.Mui-disabled': {
+              border: '1px solid rgba(0, 0, 0, 0.12)',
+              color: 'rgba(0, 0, 0, 0.38)',
+              boxShadow: 'none',
+            },
+          },
+        },
         {
           props: { variant: 'error' },
           style: {
@@ -191,6 +218,29 @@ export const theme = createTheme({
             bottom: '4px',
             zIndex: -1,
           },
+        },
+      },
+    },
+
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          padding: '16px 0px 16px 4px',
+          fontFamily: inter.style.fontFamily,
+          fontSize: '14px',
+          fontWeight: 400,
+          lineHeight: '143%',
+          letterSpacing: '0.17px',
+          borderColor: '#6419B7',
+        },
+
+        head: {
+          color: '#AC57E9',
+          fontWeight: 500,
+          lineHeight: '24px',
+          padding: '7px 0px 7px 4px',
+          borderColor: 'rgba(0, 0, 0, 0.12)',
         },
       },
     },

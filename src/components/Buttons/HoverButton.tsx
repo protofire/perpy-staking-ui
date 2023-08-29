@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useIsClient } from '../../hooks/useIsClient'
 
 type HoverButtonProps = Parameters<typeof Button>[0] & {

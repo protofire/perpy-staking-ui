@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import {
   UsePrepareContractWriteConfig,
   useAccount,
@@ -35,7 +35,6 @@ export const TransactionButton = (props: TransactionButtonProps) => {
 
   const account = useAccount()
   const chainId = useChainId()
-  const [snackbarOpen, setSnackbarOpen] = useState(false)
 
   const isChainSupported =
     chains.find((chain) => chain.id === chainId) !== undefined
@@ -49,19 +48,12 @@ export const TransactionButton = (props: TransactionButtonProps) => {
       !props.error,
   })
 
-  const {
-    isLoading,
-    writeAsync,
-    error: writeError,
-    isSuccess,
-    data,
-  } = useContractWrite(config)
+  const { isLoading, writeAsync, error: writeError } = useContractWrite(config)
 
   const execute = async () => {
     if (props.config?.enabled) {
       const result = await writeAsync?.()
       onSuccess?.(result?.hash)
-      setSnackbarOpen(true)
     }
   }
 
