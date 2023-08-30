@@ -16,6 +16,8 @@ import { TransactionLink } from '../TransactionLink'
 import { decodeStakeLogs, decodeUnstakeLogs } from './utils'
 import { useIsClient } from '../../hooks/useIsClient'
 import { useStaked } from '../../hooks/useStaked'
+import { IconButton } from '@mui/material'
+import { CloseOutlined } from '@mui/icons-material'
 
 interface StakeCardProps {
   vested?: boolean
@@ -25,7 +27,7 @@ interface StakeCardProps {
 export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
   const isClient = useIsClient()
 
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   const account = useAccount()
 
@@ -93,11 +95,21 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
         enqueueSnackbar(msg, {
           variant: 'success',
           autoHideDuration: 20000,
-          action: <TransactionLink hash={tx.transactionHash} />,
+          action: (
+            <>
+              <TransactionLink hash={tx.transactionHash} />
+              <IconButton
+                onClick={() => closeSnackbar?.(tx.transactionHash)}
+                size="small"
+              >
+                <CloseOutlined />
+              </IconButton>
+            </>
+          ),
         })
       }
     },
-    [decimals, symbol, enqueueSnackbar],
+    [decimals, symbol, enqueueSnackbar, closeSnackbar],
   )
 
   const handleOnUnstakeSuccess = useCallback(
@@ -113,11 +125,21 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
         enqueueSnackbar(msg, {
           variant: 'success',
           autoHideDuration: 20000,
-          action: <TransactionLink hash={tx.transactionHash} />,
+          action: (
+            <>
+              <TransactionLink hash={tx.transactionHash} />
+              <IconButton
+                onClick={() => closeSnackbar?.(tx.transactionHash)}
+                size="small"
+              >
+                <CloseOutlined />
+              </IconButton>
+            </>
+          ),
         })
       }
     },
-    [decimals, symbol, enqueueSnackbar],
+    [decimals, symbol, enqueueSnackbar, closeSnackbar],
   )
 
   return (

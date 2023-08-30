@@ -1,5 +1,15 @@
 import { alpha, createTheme, darken } from '@mui/material'
-import { Tilt_Warp, Inter, Roboto } from 'next/font/google'
+import { Inter, Roboto, Tilt_Warp } from 'next/font/google'
+
+declare module '@mui/material/styles/createPalette' {
+  interface PaletteColor {
+    icon?: string
+  }
+
+  interface SimplePaletteColorOptions {
+    icon?: string
+  }
+}
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
@@ -65,9 +75,15 @@ export const theme = createTheme({
       main: '#9C27B0',
       contrastText: '#fff',
     },
+    success: {
+      main: '#EDF7ED',
+      contrastText: '#1E4620',
+      icon: '#2e7d32',
+    },
     error: {
-      main: '#D32F2F',
-      contrastText: '#fff',
+      main: '#FDEDED',
+      contrastText: '#5F2120',
+      icon: '#d32f2f',
     },
     warning: {
       main: '#EF6C00',
