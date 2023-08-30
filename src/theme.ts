@@ -65,9 +65,13 @@ export const theme = createTheme({
       main: '#9C27B0',
       contrastText: '#fff',
     },
+    success: {
+      main: '#EDF7ED',
+      contrastText: '#1E4620',
+    },
     error: {
-      main: '#D32F2F',
-      contrastText: '#fff',
+      main: '#FDEDED',
+      contrastText: '#5F2120',
     },
     warning: {
       main: '#EF6C00',

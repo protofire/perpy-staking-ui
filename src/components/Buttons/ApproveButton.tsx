@@ -68,13 +68,7 @@ export const ApproveButton = ({
           action: hash ? (
             <>
               <TransactionLink hash={hash} />
-              <IconButton
-                onClick={() => closeSnackbar?.(hash)}
-                size="small"
-                sx={{
-                  color: 'white',
-                }}
-              >
+              <IconButton onClick={() => closeSnackbar?.(hash)} size="small">
                 <CloseOutlined />
               </IconButton>
             </>
@@ -99,9 +93,6 @@ export const ApproveButton = ({
           <IconButton
             onClick={() => closeSnackbar?.('approve-error')}
             size="small"
-            sx={{
-              color: 'white',
-            }}
           >
             <CloseOutlined />
           </IconButton>

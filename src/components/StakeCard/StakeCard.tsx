@@ -110,9 +110,6 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
               <IconButton
                 onClick={() => closeSnackbar?.(tx.transactionHash)}
                 size="small"
-                sx={{
-                  color: 'white',
-                }}
               >
                 <CloseOutlined />
               </IconButton>
@@ -149,9 +146,6 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
               <IconButton
                 onClick={() => closeSnackbar?.(tx.transactionHash)}
                 size="small"
-                sx={{
-                  color: 'white',
-                }}
               >
                 <CloseOutlined />
               </IconButton>

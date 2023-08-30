@@ -7,12 +7,7 @@ interface TransactionLinkProps {
 }
 
 export const TransactionLink = ({ hash }: TransactionLinkProps) => (
-  <Link
-    href={getExplorerLink(hash)}
-    color="#ffffff"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
+  <Link href={getExplorerLink(hash)} target="_blank" rel="noopener noreferrer">
     <OpenInNewIcon
       sx={{
         fontSize: 18,
