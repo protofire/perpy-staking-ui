@@ -14,13 +14,14 @@ import { CloseOutlined } from '@mui/icons-material'
 type ApproveButtonProps = Parameters<typeof ConnectButton>[0] & {
   tokenAddress?: `0x${string}`
   spenderAddress?: `0x${string}`
-  amount: number | string
+  amount?: number | string
   fullWidth?: boolean
   config: UsePrepareContractWriteConfig
   loadingText?: string
   label: string
   error?: Error | null
   onSuccess?: (hash?: `0x${string}`) => void
+  skipApproval?: boolean
 }
 
 export const ApproveButton = ({
@@ -33,6 +34,7 @@ export const ApproveButton = ({
   label,
   error,
   onSuccess,
+  skipApproval = false,
   ...props
 }: ApproveButtonProps) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
@@ -46,12 +48,13 @@ export const ApproveButton = ({
   } = useAllowance(tokenAddress, spenderAddress)
 
   const denormalizedAmount = BigInt(
-    new BigNumber(amount)
+    new BigNumber(amount ?? 0)
       .times(new BigNumber(10).pow(token?.decimals ?? ETH_DECIMALS))
       .toFixed(0),
   )
 
-  const approved = allowance !== undefined && allowance >= denormalizedAmount
+  const approved =
+    skipApproval || (allowance !== undefined && allowance >= denormalizedAmount)
 
   const handleSuccess = useCallback(
     (hash: `0x${string}`) => {

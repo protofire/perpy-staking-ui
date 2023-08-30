@@ -53,7 +53,7 @@ export const TransactionButton = (props: TransactionButtonProps) => {
   const { isLoading, writeAsync, error: writeError } = useContractWrite(config)
 
   const execute = async () => {
-    if (props.config?.enabled) {
+    if (props.config?.enabled !== false) {
       try {
         const result = await writeAsync?.()
 

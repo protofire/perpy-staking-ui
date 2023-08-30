@@ -15,7 +15,7 @@ export const VestingCard = () => {
   return (
     <Card
       title="Vesting"
-      subTitle="Vested xPRY is entitled to 50% of the real yield."
+      subTitle="Vested vPRY is entitled to 50% of the real yield."
       sx={{
         flex: '1 0 66%',
         display: 'flex',
@@ -71,7 +71,7 @@ export const VestingCard = () => {
           <Table sx={{ minWidth: '100%', tableLayout: 'fixed' }}>
             <TableHead>
               <TableRow>
-                <TableCell>xPRY Input</TableCell>
+                <TableCell>vPRY Input</TableCell>
                 <TableCell>PRY Output</TableCell>
                 <TableCell>Time Left</TableCell>
                 <TableCell>Cancel/Redeem</TableCell>

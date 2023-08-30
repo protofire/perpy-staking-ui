@@ -86,12 +86,14 @@ export const theme = createTheme({
       icon: '#d32f2f',
     },
     warning: {
-      main: '#EF6C00',
-      contrastText: '#fff',
+      main: '#FFF4E5',
+      contrastText: '#663C00',
+      icon: '#EF6C00',
     },
     info: {
-      main: '#0288D1',
-      contrastText: '#fff',
+      main: '#E5F6FD',
+      contrastText: '#014361',
+      icon: '#0288D1',
     },
   },
   components: {
@@ -257,6 +259,20 @@ export const theme = createTheme({
           lineHeight: '24px',
           padding: '7px 0px 7px 4px',
           borderColor: 'rgba(0, 0, 0, 0.12)',
+        },
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: '#E5F6FD',
+          color: '#014361',
+          fontSize: '14px',
+          fontWeight: 400,
+          lineHeight: '143%',
+          letterSpacing: '0.17px',
+          fontFamily: inter.style.fontFamily,
+          maxWidth: '500px',
         },
       },
     },
