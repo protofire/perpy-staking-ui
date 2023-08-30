@@ -5,12 +5,11 @@ import Head from 'next/head'
 import { Box, Link, Typography } from '@mui/material'
 import { Badge } from './Badge'
 import { Card } from './Card'
-import { ApproveButton } from './Buttons/ApproveButton'
-import { RewardsBanner } from './RewardsBanner'
 import { StakeCard } from './StakeCard/StakeCard'
 import { StakedBadge } from './Badges/StakedBadge'
 import { TotalEarnedBadge } from './Badges/TotalEarnedBadge'
 import { VestingCard } from './VestinCard/VestingCard'
+import { RewardsCard } from './RewardsCard'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -44,7 +43,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
             Stake
           </Typography>
           <Typography>
-            Stake your PRY and xPRY to earn real yield in the form of PRY.{' '}
+            Stake your PRY and vPRY to earn real yield in the form of PRY.{' '}
             <Link>Learn more</Link>
           </Typography>
         </Box>
@@ -56,10 +55,10 @@ export const Layout = ({ children }: { children: ReactNode }) => {
             paddingTop: '36px',
           }}
         >
-          <StakedBadge symbol="xPRY" vested />
+          <StakedBadge symbol="vPRY" vested />
           <StakedBadge symbol="PRY" />
 
-          <Badge value="45.72%" label="APR" img="/apr.svg" />
+          <Badge value="0%" label="APY" img="/apy.svg" />
           <TotalEarnedBadge />
         </Box>
         <Box
@@ -74,34 +73,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
 
           <StakeCard subtitle="Get 1x weight in the staking pool." />
 
-          <Card title="Rewards" img="/coins.svg" highlight>
-            <RewardsBanner
-              title="Total earned"
-              value="$593"
-              subValue="15.295 PRY"
-              sx={{
-                marginBottom: '32px',
-                marginTop: '8px',
-              }}
-            />
-            <RewardsBanner
-              title="Claimable"
-              value="$102"
-              subValue="3.040 PRY"
-              sx={{
-                marginBottom: '32px',
-              }}
-            />
-            <ApproveButton
-              label="Claim"
-              loadingText="Claiming..."
-              config={{}}
-              tokenAddress="0x3fAeDb824A226Af1646dA0ec4dD7fAA3ba736382"
-              spenderAddress="0x87Fe8eBa753076a943BD2A5f6c3556188064797E"
-              amount="100"
-              fullWidth
-            />
-          </Card>
+          <RewardsCard />
         </Box>
         <Box
           sx={{

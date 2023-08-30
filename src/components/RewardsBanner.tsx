@@ -1,4 +1,4 @@
-import { Box, BoxProps, Typography } from '@mui/material'
+import { Box, BoxProps, Tooltip, Typography } from '@mui/material'
 import { ReactNode } from 'react'
 import { tiltWrap } from '../theme'
 
@@ -6,10 +6,14 @@ type RewardsBannerProps = BoxProps & {
   title: ReactNode
   value: ReactNode
   subValue?: ReactNode
+  loading?: boolean
+  tooltip?: ReactNode
+  subTooltip?: ReactNode
 }
 
 export const RewardsBanner = (props: RewardsBannerProps) => {
-  const { title, value, subValue, ...boxProps } = props
+  const { title, value, subValue, loading, tooltip, subTooltip, ...boxProps } =
+    props
 
   return (
     <Box
@@ -34,23 +38,27 @@ export const RewardsBanner = (props: RewardsBannerProps) => {
       >
         {title}
       </Typography>
-      <Typography
-        fontSize={34}
-        textAlign="right"
-        fontFamily={tiltWrap.style.fontFamily}
-        lineHeight="123.5%"
-      >
-        {value}
-      </Typography>
-      <Typography
-        fontSize={16}
-        textAlign="right"
-        letterSpacing="0.15px"
-        lineHeight="150%"
-        fontWeight={400}
-      >
-        {subValue}
-      </Typography>
+      <Tooltip title={tooltip}>
+        <Typography
+          fontSize={34}
+          textAlign="right"
+          fontFamily={tiltWrap.style.fontFamily}
+          lineHeight="123.5%"
+        >
+          {loading ? '...' : value}
+        </Typography>
+      </Tooltip>
+      <Tooltip title={subTooltip}>
+        <Typography
+          fontSize={16}
+          textAlign="right"
+          letterSpacing="0.15px"
+          lineHeight="150%"
+          fontWeight={400}
+        >
+          {loading ? '...' : subValue}
+        </Typography>
+      </Tooltip>
     </Box>
   )
 }

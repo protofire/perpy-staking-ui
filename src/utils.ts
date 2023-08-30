@@ -77,13 +77,23 @@ export function decodeLogs(args: {
   }))
 }
 
-export const formatCurrency = (value: number | string, currency?: string) => {
+export const formatCurrency = (
+  value: number | string | BigNumber,
+  currency?: string,
+) => {
+  const val =
+    value instanceof BigNumber
+      ? value.decimalPlaces(3).toNumber()
+      : Number(value)
+
   if (currency === 'USD') {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-    }).format(Number(value))
+    }).format(val)
+  } else if (currency !== undefined) {
+    return `${new Intl.NumberFormat('en-US').format(val)} ${currency}`
   }
 
-  return new Intl.NumberFormat('en-US').format(Number(value))
+  return new Intl.NumberFormat('en-US').format(val)
 }

@@ -93,6 +93,7 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
         )} ${symbol} successfully!`
 
         enqueueSnackbar(msg, {
+          key: tx.transactionHash,
           variant: 'success',
           autoHideDuration: 20000,
           action: (
@@ -123,6 +124,7 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
         )} ${symbol} successfully!`
 
         enqueueSnackbar(msg, {
+          key: tx.transactionHash,
           variant: 'success',
           autoHideDuration: 20000,
           action: (
