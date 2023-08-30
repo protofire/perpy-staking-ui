@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { UsePrepareContractWriteConfig } from 'wagmi'
-import { TransactionReceipt, parseUnits } from 'viem'
+import { parseUnits, TransactionReceipt } from 'viem'
 import BigNumber from 'bignumber.js'
 import { AmountSlider } from './AmountSlider'
 import { ApproveButton } from './Buttons/ApproveButton'

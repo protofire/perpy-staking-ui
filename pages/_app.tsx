@@ -7,7 +7,7 @@ import '../styles/globals.css'
 import { theme } from '../src/theme'
 import { TransactionProvider } from '../src/contexts/TransactionContext'
 import { chains, wagmiConfig } from '../src/wagmi.config'
-import { SnackbarProvider } from 'notistack'
+import { SnackbarProvider } from '../src/components/SnackbarProvider'
 
 declare global {
   interface BigInt {
@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <RainbowKitProvider chains={chains}>
         <TransactionProvider>
           <ThemeProvider theme={theme}>
-            <SnackbarProvider maxSnack={3}>
+            <SnackbarProvider>
               <Component {...pageProps} />
             </SnackbarProvider>
           </ThemeProvider>

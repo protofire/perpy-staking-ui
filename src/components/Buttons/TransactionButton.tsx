@@ -1,10 +1,10 @@
 import { ReactNode } from 'react'
 import {
-  UsePrepareContractWriteConfig,
   useAccount,
   useChainId,
   useContractWrite,
   usePrepareContractWrite,
+  UsePrepareContractWriteConfig,
 } from 'wagmi'
 import { chains } from '../../wagmi.config'
 import { ConnectButton } from './ConnectButton'
@@ -17,7 +17,8 @@ export type TransactionButtonProps = Parameters<typeof ConnectButton>[0] & {
   fullWidth?: boolean
   error?: Error | null
   showErrors?: boolean
-  onSuccess?: (hash?: `0x${string}`) => void
+  onSuccess?: (hash: `0x${string}`) => void
+  onFail?: (error: Error) => void
 }
 
 export const TransactionButton = (props: TransactionButtonProps) => {
@@ -30,6 +31,7 @@ export const TransactionButton = (props: TransactionButtonProps) => {
     fullWidth,
     disabled,
     onSuccess,
+    onFail,
     ...attrs
   } = props
 
@@ -52,8 +54,15 @@ export const TransactionButton = (props: TransactionButtonProps) => {
 
   const execute = async () => {
     if (props.config?.enabled) {
-      const result = await writeAsync?.()
-      onSuccess?.(result?.hash)
+      try {
+        const result = await writeAsync?.()
+
+        if (result?.hash) {
+          onSuccess?.(result?.hash)
+        }
+      } catch (error) {
+        onFail?.(error as Error)
+      }
     }
   }
 
