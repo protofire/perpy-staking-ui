@@ -8,7 +8,8 @@ import { Card } from './Card'
 import { RewardsBanner } from './RewardsBanner'
 import pryABI from '../abi/pryABI.json'
 import { Abi } from 'viem'
-import { useAccount, useContractRead } from 'wagmi'
+import { useAccount } from 'wagmi'
+import { useActiveIndexes } from '../hooks/useActiveIndexes'
 
 export const RewardsCard = () => {
   const isClient = useIsClient()
@@ -29,17 +30,6 @@ export const RewardsCard = () => {
     isError,
   } = useRewards()
 
-  console.log({
-    totalEarned: totalEarned.toString(),
-    totalEarnedUsd: totalEarnedUsd.toString(),
-    claimable: claimable.toString(),
-    claimableUsd: claimableUsd.toString(),
-    dividendRewards: dividendRewards.toString(),
-    dividendRewardsUsd: dividendRewardsUsd.toString(),
-    vestingRewards: vestingRewards.toString(),
-    vestingRewardsUsd: vestingRewardsUsd.toString(),
-  })
-
   const account = useAccount()
 
   const {
@@ -47,14 +37,7 @@ export const RewardsCard = () => {
     error: activeIndexesError,
     isLoading: activeIndexesIsLoading,
     isError: activeIndexesIsError,
-  } = useContractRead({
-    address: STAKING_CONTRACT_ADDRESS,
-    abi: pryABI as Abi,
-    functionName: 'getActiveIndexes',
-    args: [account.address],
-    enabled: !!account.address,
-    watch: true,
-  })
+  } = useActiveIndexes()
 
   const config = dividendRewards.eq(0)
     ? {

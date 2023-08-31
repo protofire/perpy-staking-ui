@@ -58,8 +58,6 @@ export const useRewards = () => {
     PRY_TOKEN.decimals,
   )
 
-  console.log({ data })
-
   const claimable = dividendRewards.plus(vestingRewards)
 
   const dividendRewardsUsd = dividendRewards.multipliedBy(price ?? 0)
@@ -69,20 +67,6 @@ export const useRewards = () => {
   const totalEarnedUsd = totalEarned.multipliedBy(price ?? 0)
 
   const claimableUsd = claimable.multipliedBy(price ?? 0)
-
-  console.log({
-    totalEarned: totalEarned.toString(),
-    totalEarnedUsd: totalEarnedUsd.toString(),
-    claimable: claimable.toString(),
-    claimableUsd: claimableUsd.toString(),
-    dividendRewards: dividendRewards.toString(),
-    vestingRewards: vestingRewards.toString(),
-    dividendRewardsUsd: dividendRewardsUsd.toString(),
-    vestingRewardsUsd: vestingRewardsUsd.toString(),
-    price: price?.toString(),
-    data,
-    PRY_TOKEN,
-  })
 
   return {
     data: {
