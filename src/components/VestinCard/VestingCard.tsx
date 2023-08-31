@@ -10,8 +10,11 @@ import {
 } from '@mui/material'
 import { Card } from '../Card'
 import { VestingBanner } from '../VestingBanner'
+import { useVesting } from '../../hooks/useVesting'
 
 export const VestingCard = () => {
+  useVesting()
+
   return (
     <Card
       title="Vesting"
