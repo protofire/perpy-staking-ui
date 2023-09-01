@@ -23,6 +23,3 @@ export const decodeDepositVestingLogs = (tx: TransactionReceipt) =>
     eventName: 'DepositVesting',
     contractAddresses: [STAKING_CONTRACT_ADDRESS],
   })?.[0]
-
-export const secondsToDays = (seconds: number | bigint) =>
-  Number(BigInt(seconds) / BigInt(24 * 60 * 60))

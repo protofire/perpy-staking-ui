@@ -42,11 +42,15 @@ const BorderBox = styled(({ highlight, ...props }: HighlightProps) => (
 const StyledBox = styled(({ highlight, ...props }: HighlightProps) => (
   <Box {...props} />
 ))<HighlightProps>`
+  display: flex;
+  flex-direction: column;
   border-radius: 12px;
   position: relative;
   box-sizing: border-box;
   border: solid 1px transparent;
   min-height: 480px;
+  max-height: 480px;
+  overflow: hidden;
   background: ${(props) =>
         !!props.highlight &&
         `linear-gradient(

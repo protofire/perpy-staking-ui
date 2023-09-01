@@ -73,9 +73,9 @@ export const TransactionButton = (props: TransactionButtonProps) => {
   return (
     <>
       <ConnectButton
+        variant="default"
         {...attrs}
         disabled={disabled || isLoading}
-        variant="default"
         custom
         onClick={execute}
         sx={{

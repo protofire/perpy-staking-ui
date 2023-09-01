@@ -264,6 +264,18 @@ export const theme = createTheme({
           lineHeight: '24px',
           padding: '7px 0px 7px 4px',
           borderColor: 'rgba(0, 0, 0, 0.12)',
+          '&.MuiTableCell-stickyHeader': {
+            color: '#AC57E9',
+            fontWeight: 500,
+            lineHeight: '24px',
+            padding: '7px 0px 7px 4px',
+            borderColor: 'rgba(0, 0, 0, 0.12)',
+            background: `linear-gradient(
+              180deg,
+              #3C2160 0%,
+              #291F35f0 100%
+            )`,
+          },
         },
       },
     },

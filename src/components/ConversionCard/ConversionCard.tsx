@@ -17,12 +17,8 @@ import pryAbi from '../../abi/pryABI.json'
 
 import { Abi, parseUnits } from 'viem'
 import { useSnackbar } from 'notistack'
-import { normalize } from '../../utils'
-import {
-  decodeConversionLogs,
-  decodeDepositVestingLogs,
-  secondsToDays,
-} from './utils'
+import { normalize, secondsToDays } from '../../utils'
+import { decodeConversionLogs, decodeDepositVestingLogs } from './utils'
 import { waitForTransaction } from '@wagmi/core'
 import { TransactionAction } from '../TransactionAction'
 import { MARKS, MAX_DAYS, MIN_DAYS } from './consts'
@@ -146,39 +142,46 @@ export const ConversionCard = () => {
       {tokens[0] === 'PRY' ? (
         <Box
           sx={{
-            height: '83px',
+            height: '157px',
             marginBottom: '32px',
           }}
         />
       ) : (
-        <AmountSlider
-          label="Vesting Duration"
-          unit="DAYS"
-          min={MIN_DAYS}
-          max={MAX_DAYS}
-          valueLabelDisplay="auto"
-          marks={MARKS}
-          value={vestingDuration}
-          onChange={handleVestingDurationChange}
-        />
+        <>
+          <AmountSlider
+            label="Vesting Duration"
+            unit="DAYS"
+            min={MIN_DAYS}
+            max={MAX_DAYS}
+            valueLabelDisplay="auto"
+            marks={MARKS}
+            value={vestingDuration}
+            onChange={handleVestingDurationChange}
+          />
+          <Box>
+            <Typography color="text.surface">
+              Redeem Percentage{' '}
+              <Typography
+                fontFamily={tiltWrap.style.fontFamily}
+                fontSize="16px"
+              >
+                {+redeemPercentage.toFixed(2)}%
+              </Typography>
+            </Typography>
+          </Box>
+          <Box sx={{ paddingBottom: '32px' }}>
+            <Typography color="text.surface">
+              Redeemable PRY{' '}
+              <Typography
+                fontFamily={tiltWrap.style.fontFamily}
+                fontSize="16px"
+              >
+                {+redeemablePRY.toFixed(2)}
+              </Typography>
+            </Typography>
+          </Box>
+        </>
       )}
-
-      <Box>
-        <Typography color="text.surface">
-          Redeem Percentage{' '}
-          <Typography fontFamily={tiltWrap.style.fontFamily} fontSize="16px">
-            {+redeemPercentage.toFixed(2)}%
-          </Typography>
-        </Typography>
-      </Box>
-      <Box sx={{ paddingBottom: '32px' }}>
-        <Typography color="text.surface">
-          Redeemable PRY{' '}
-          <Typography fontFamily={tiltWrap.style.fontFamily} fontSize="16px">
-            {+redeemablePRY.toFixed(2)}
-          </Typography>
-        </Typography>
-      </Box>
 
       <ApproveButton
         config={config}
