@@ -242,7 +242,7 @@ export const VestingCard = () => {
                 </TableRow>
               ) : null}
 
-              {!vestingStakes?.length && !isLoading && !isError && (
+              {isClient && !vestingStakes?.length && !isLoading && !isError && (
                 <TableRow>
                   <TableCell colSpan={5}>No vesting stakes found.</TableCell>
                 </TableRow>

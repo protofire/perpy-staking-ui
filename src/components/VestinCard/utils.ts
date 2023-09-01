@@ -19,9 +19,12 @@ export const decodeRedeemLogs = (tx: TransactionReceipt) =>
     contractAddresses: [STAKING_CONTRACT_ADDRESS],
   })?.[0]
 
-export const getTimeLeft = (startTime: bigint, vestingDuration: bigint) => {
+export const getTimeLeft = (
+  startTime: bigint | number,
+  vestingDuration: bigint | number,
+) => {
   const now = BigInt(Math.floor(Date.now() / 1000))
-  const endTime = startTime + vestingDuration
+  const endTime = BigInt(startTime) + BigInt(vestingDuration)
   const timeLeft = endTime - now
   return timeLeft
 }
