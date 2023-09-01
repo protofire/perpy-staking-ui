@@ -25,7 +25,7 @@ export const useStaked = ({ vested = false }: UseStakedProps) => {
     address: STAKING_CONTRACT_ADDRESS,
     abi: pryABI as Abi,
     args: [account.address],
-    functionName: vested ? 'dividendVestedWINRStakes' : 'dividendWINRStakes',
+    functionName: vested ? 'dividendVestedPRYStakes' : 'dividendPRYStakes',
     enabled: !!account.address,
     watch: true,
   })

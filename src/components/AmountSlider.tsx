@@ -37,7 +37,7 @@ export const AmountSlider = ({ ...props }: AmountSliderProps) => {
           <Typography
             variant="body1"
             fontSize={14}
-            color="#CAC4D0"
+            color="text.surface"
             lineHeight="20px"
           >
             {props.unit}

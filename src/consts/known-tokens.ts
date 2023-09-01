@@ -4,24 +4,24 @@ import { wagmiConfig } from '../wagmi.config'
 const TOKENS: ContractsConfig<TokenMeta> = {
   PRY: {
     42161: {
-      address: '0x3fAeDb824A226Af1646dA0ec4dD7fAA3ba736382',
+      address: '0xE4F69E0Ce7AbE7d56695b6661D1da57eCD0CB7c3',
       symbol: 'PRY',
       decimals: 18,
     },
     421613: {
-      address: '0x3fAeDb824A226Af1646dA0ec4dD7fAA3ba736382',
+      address: '0xE4F69E0Ce7AbE7d56695b6661D1da57eCD0CB7c3',
       symbol: 'PRY',
       decimals: 18,
     },
   },
   vPRY: {
     42161: {
-      address: '0x9640b27bBc8FBc85dd03b2B10827423b2853D5fD',
+      address: '0x85E9C15c77Cf42c84A00156De97280945B270cd0',
       symbol: 'vPRY',
       decimals: 18,
     },
     421613: {
-      address: '0x9640b27bBc8FBc85dd03b2B10827423b2853D5fD',
+      address: '0x85E9C15c77Cf42c84A00156De97280945B270cd0',
       symbol: 'vPRY',
       decimals: 18,
     },

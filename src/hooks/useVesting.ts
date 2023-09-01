@@ -52,25 +52,25 @@ export const useVesting = () => {
         args: account.address ? [account.address, index] : [],
         functionName: 'withdrawableTokens',
       })) ?? [],
-    enabled: !!account.address,
+    enabled: !!account.address && !!activeIndexes?.length,
     watch: true,
   })
 
-  const extras = (vestingStakes as VestingStake[])?.map(
-    (stake: VestingStake, i) => {
-      const timeLeft =
-        Number(stake.result.startTime + stake.result.vestingDuration) -
-        Date.now() / 1000
+  const extras = true
+    ? []
+    : (vestingStakes as VestingStake[])?.map((stake: VestingStake, i) => {
+        const timeLeft =
+          Number(stake.result.startTime + stake.result.vestingDuration) -
+          Date.now() / 1000
 
-      return {
-        input: stake.result.amount,
-        output: withdrawableTokens?.[i].result,
-        timeLeft: `${Math.floor(timeLeft / 86400)} days ${Math.floor(
-          (timeLeft % 86400) / 3600,
-        )}:${Math.floor((timeLeft % 3600) / 60)}`,
-      }
-    },
-  )
+        return {
+          input: stake.result.amount,
+          output: withdrawableTokens?.[i].result,
+          timeLeft: `${Math.floor(timeLeft / 86400)} days ${Math.floor(
+            (timeLeft % 86400) / 3600,
+          )}:${Math.floor((timeLeft % 3600) / 60)}`,
+        }
+      })
 
   return {
     data: {

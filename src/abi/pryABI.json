@@ -278,13 +278,13 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "totalStakedVWINR",
+        "name": "totalStakedVPRY",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "totalStakedWINR",
+        "name": "totalStakedPRY",
         "type": "uint256"
       }
     ],
@@ -359,16 +359,16 @@
     "inputs": [
       {
         "components": [
-          { "internalType": "uint256", "name": "winr", "type": "uint256" },
-          { "internalType": "uint256", "name": "vWinr", "type": "uint256" },
+          { "internalType": "uint256", "name": "pry", "type": "uint256" },
+          { "internalType": "uint256", "name": "vPry", "type": "uint256" },
           {
             "internalType": "uint256",
-            "name": "vWinrVesting",
+            "name": "vPryVesting",
             "type": "uint256"
           }
         ],
         "indexed": false,
-        "internalType": "struct IWINRStaking.WeightMultipliers",
+        "internalType": "struct IPRYStaking.WeightMultipliers",
         "name": "_weightMultipliers",
         "type": "tuple"
       }
@@ -530,6 +530,18 @@
     "type": "function"
   },
   {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "dividendPRYStakes",
+    "outputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "profitDebt", "type": "uint256" },
+      { "internalType": "uint256", "name": "weight", "type": "uint256" },
+      { "internalType": "uint128", "name": "depositTime", "type": "uint128" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "address", "name": "_account", "type": "address" },
       { "internalType": "bool", "name": "_isVested", "type": "bool" }
@@ -541,19 +553,7 @@
   },
   {
     "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "dividendVestedWINRStakes",
-    "outputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "profitDebt", "type": "uint256" },
-      { "internalType": "uint256", "name": "weight", "type": "uint256" },
-      { "internalType": "uint128", "name": "depositTime", "type": "uint128" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "dividendWINRStakes",
+    "name": "dividendVestedPRYStakes",
     "outputs": [
       { "internalType": "uint256", "name": "amount", "type": "uint256" },
       { "internalType": "uint256", "name": "profitDebt", "type": "uint256" },
@@ -596,7 +596,7 @@
             "type": "uint128"
           }
         ],
-        "internalType": "struct IWINRStaking.StakeDividend",
+        "internalType": "struct IPRYStaking.StakeDividend",
         "name": "",
         "type": "tuple"
       }
@@ -626,20 +626,10 @@
             "type": "uint256"
           },
           { "internalType": "uint256", "name": "startTime", "type": "uint256" },
-          {
-            "internalType": "uint256",
-            "name": "accTokenFirstDay",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "accTokenPerDay",
-            "type": "uint256"
-          },
           { "internalType": "bool", "name": "withdrawn", "type": "bool" },
           { "internalType": "bool", "name": "cancelled", "type": "bool" }
         ],
-        "internalType": "struct IWINRStaking.StakeVesting",
+        "internalType": "struct IPRYStaking.StakeVesting",
         "name": "_stake",
         "type": "tuple"
       }
@@ -664,12 +654,12 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "_totalStakedVWINR",
+        "name": "_totalStakedVPRY",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_totalStakedWINR",
+        "name": "_totalStakedPRY",
         "type": "uint256"
       },
       { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }
@@ -801,16 +791,6 @@
       },
       { "internalType": "uint256", "name": "profitDebt", "type": "uint256" },
       { "internalType": "uint256", "name": "startTime", "type": "uint256" },
-      {
-        "internalType": "uint256",
-        "name": "accTokenFirstDay",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "accTokenPerDay",
-        "type": "uint256"
-      },
       { "internalType": "bool", "name": "withdrawn", "type": "bool" },
       { "internalType": "bool", "name": "cancelled", "type": "bool" }
     ],
@@ -860,14 +840,14 @@
   },
   {
     "inputs": [],
-    "name": "totalStakedVestedWINR",
+    "name": "totalStakedPRY",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "totalStakedWINR",
+    "name": "totalStakedVestedPRY",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -931,9 +911,9 @@
     "inputs": [],
     "name": "weightMultipliers",
     "outputs": [
-      { "internalType": "uint256", "name": "winr", "type": "uint256" },
-      { "internalType": "uint256", "name": "vWinr", "type": "uint256" },
-      { "internalType": "uint256", "name": "vWinrVesting", "type": "uint256" }
+      { "internalType": "uint256", "name": "pry", "type": "uint256" },
+      { "internalType": "uint256", "name": "vPry", "type": "uint256" },
+      { "internalType": "uint256", "name": "vPryVesting", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"
