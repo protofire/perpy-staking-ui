@@ -15,9 +15,11 @@ export const TimeLeft = ({ startTime, vestingDuration }: TimeLeftProps) => {
   )
 
   useEffect(() => {
-    const timeLeft = getTimeLeft(startTime, vestingDuration)
+    const interval = setInterval(() => {
+      const timeLeft = getTimeLeft(startTime, vestingDuration)
+      setValue(timeLeft)
+    }, 1000 * 60)
 
-    const interval = setInterval(() => setValue(timeLeft), 1000 * 60)
     return () => {
       clearInterval(interval)
     }
