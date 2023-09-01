@@ -97,3 +97,6 @@ export const formatCurrency = (
 
   return new Intl.NumberFormat('en-US').format(val)
 }
+
+export const secondsToDays = (seconds: number | bigint) =>
+  Number(BigInt(seconds) / BigInt(24 * 60 * 60))
