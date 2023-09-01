@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useSnackbar } from 'notistack'
 import BigNumber from 'bignumber.js'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount, useBalance, UsePrepareContractWriteConfig } from 'wagmi'
 import { Abi, TransactionReceipt } from 'viem'
 import { AmountOperation } from '../AmountOperation'
 import { Card } from '../Card'
@@ -12,12 +12,10 @@ import {
   STAKING_CONTRACT_ADDRESS,
   TOKEN_MANAGER_CONTRACT_ADDRESS,
 } from '../../consts/contract-addresses'
-import { TransactionLink } from '../TransactionLink'
 import { decodeStakeLogs, decodeUnstakeLogs } from './utils'
 import { useIsClient } from '../../hooks/useIsClient'
 import { useStaked } from '../../hooks/useStaked'
-import { IconButton } from '@mui/material'
-import { CloseOutlined } from '@mui/icons-material'
+import { TransactionAction } from '../TransactionAction'
 
 interface StakeCardProps {
   vested?: boolean
@@ -27,7 +25,7 @@ interface StakeCardProps {
 export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
   const isClient = useIsClient()
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar()
 
   const account = useAccount()
 
@@ -61,7 +59,7 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
   })
 
   const stakeConfig = useCallback(
-    (amount: bigint) => ({
+    (amount: bigint): UsePrepareContractWriteConfig => ({
       address: STAKING_CONTRACT_ADDRESS,
       abi: pryABI as Abi,
       args: [amount, vested ? '1' : '0'],
@@ -72,7 +70,7 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
   )
 
   const unstakeConfig = useCallback(
-    (amount: bigint) => ({
+    (amount: bigint): UsePrepareContractWriteConfig => ({
       address: STAKING_CONTRACT_ADDRESS,
       abi: pryABI as Abi,
       args: [amount, vested ? '1' : '0'],
@@ -83,65 +81,41 @@ export const StakeCard = ({ vested = false, subtitle }: StakeCardProps) => {
   )
 
   const handleOnStakeSuccess = useCallback(
-    (tx?: TransactionReceipt) => {
-      if (tx) {
-        const event = decodeStakeLogs(tx)
+    (tx: TransactionReceipt) => {
+      const event = decodeStakeLogs(tx)
 
-        const msg = `Staked ${normalize(
-          (event.data.args as { amount: bigint }).amount,
-          decimals,
-        )} ${symbol} successfully!`
+      const msg = `Staked ${normalize(
+        (event.data.args as { amount: bigint }).amount,
+        decimals,
+      )} ${symbol} successfully!`
 
-        enqueueSnackbar(msg, {
-          key: tx.transactionHash,
-          variant: 'success',
-          autoHideDuration: 20000,
-          action: (
-            <>
-              <TransactionLink hash={tx.transactionHash} />
-              <IconButton
-                onClick={() => closeSnackbar?.(tx.transactionHash)}
-                size="small"
-              >
-                <CloseOutlined />
-              </IconButton>
-            </>
-          ),
-        })
-      }
+      enqueueSnackbar(msg, {
+        key: tx.transactionHash,
+        variant: 'success',
+        autoHideDuration: 20000,
+        action: <TransactionAction hash={tx.transactionHash} />,
+      })
     },
-    [decimals, symbol, enqueueSnackbar, closeSnackbar],
+    [decimals, symbol, enqueueSnackbar],
   )
 
   const handleOnUnstakeSuccess = useCallback(
-    (tx?: TransactionReceipt) => {
-      if (tx) {
-        const event = decodeUnstakeLogs(tx)
+    (tx: TransactionReceipt) => {
+      const event = decodeUnstakeLogs(tx)
 
-        const msg = `Staked ${normalize(
-          (event.data.args as { amount: bigint }).amount,
-          decimals,
-        )} ${symbol} successfully!`
+      const msg = `Staked ${normalize(
+        (event.data.args as { amount: bigint }).amount,
+        decimals,
+      )} ${symbol} successfully!`
 
-        enqueueSnackbar(msg, {
-          key: tx.transactionHash,
-          variant: 'success',
-          autoHideDuration: 20000,
-          action: (
-            <>
-              <TransactionLink hash={tx.transactionHash} />
-              <IconButton
-                onClick={() => closeSnackbar?.(tx.transactionHash)}
-                size="small"
-              >
-                <CloseOutlined />
-              </IconButton>
-            </>
-          ),
-        })
-      }
+      enqueueSnackbar(msg, {
+        key: tx.transactionHash,
+        variant: 'success',
+        autoHideDuration: 20000,
+        action: <TransactionAction hash={tx.transactionHash} />,
+      })
     },
-    [decimals, symbol, enqueueSnackbar, closeSnackbar],
+    [decimals, symbol, enqueueSnackbar],
   )
 
   return (

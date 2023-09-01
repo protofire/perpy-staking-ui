@@ -24,7 +24,7 @@ interface AmountOperationProps {
   disabled?: boolean
   error?: Error | null
   requiresApproval?: boolean
-  onSuccess?: (tx?: TransactionReceipt) => void
+  onSuccess?: (tx: TransactionReceipt) => void
 }
 
 export const AmountOperation = (props: AmountOperationProps) => {
@@ -50,14 +50,13 @@ export const AmountOperation = (props: AmountOperationProps) => {
     setAmount(newValue as number)
   }
 
-  const handleTransactionSuccess = async (hash?: `0x${string}`) => {
-    if (hash) {
-      const receipt = await waitForTransaction({
-        hash,
-      })
+  const handleTransactionSuccess = async (hash: `0x${string}`) => {
+    const receipt = await waitForTransaction({
+      hash,
+    })
 
-      onSuccess?.(receipt)
-    }
+    onSuccess?.(receipt)
+
     setAmount(0)
   }
 

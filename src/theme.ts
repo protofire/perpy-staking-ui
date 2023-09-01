@@ -9,6 +9,10 @@ declare module '@mui/material/styles/createPalette' {
   interface SimplePaletteColorOptions {
     icon?: string
   }
+
+  interface TypeText {
+    surface: string
+  }
 }
 
 declare module '@mui/material/Button' {
@@ -19,8 +23,8 @@ declare module '@mui/material/Button' {
 }
 
 export const tiltWrap = Tilt_Warp({ subsets: ['latin'] })
-const inter = Inter({ subsets: ['latin'] })
-const roboto = Roboto({ subsets: ['latin'], weight: '500' })
+export const inter = Inter({ subsets: ['latin'] })
+export const roboto = Roboto({ subsets: ['latin'], weight: '500' })
 
 export const theme = createTheme({
   typography: {
@@ -66,6 +70,7 @@ export const theme = createTheme({
     text: {
       primary: '#fff',
       secondary: '#AC57E9',
+      surface: '#CAC4D0',
     },
     primary: {
       main: '#2196F3',

@@ -44,7 +44,7 @@ export const Badge = (props: BadgeProps) => {
           }}
         >
           <Typography variant="h6">{props.value}</Typography>
-          <Typography component="span" color="secondary">
+          <Typography component="span" color="text.secondary">
             {props.subValue}
           </Typography>
         </Box>

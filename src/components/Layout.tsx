@@ -4,12 +4,12 @@ import styles from '../../styles/Home.module.css'
 import Head from 'next/head'
 import { Box, Link, Typography } from '@mui/material'
 import { Badge } from './Badge'
-import { Card } from './Card'
 import { StakeCard } from './StakeCard/StakeCard'
 import { StakedBadge } from './Badges/StakedBadge'
 import { TotalEarnedBadge } from './Badges/TotalEarnedBadge'
 import { VestingCard } from './VestinCard/VestingCard'
 import { RewardsCard } from './RewardsCard'
+import { ConversionCard } from './ConversionCard/ConversionCard'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -84,13 +84,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
           }}
         >
           <VestingCard />
-          <Card
-            title="Conversion"
-            subTitle="Customize your vesting schedule."
-            sx={{
-              flex: '0 1 auto',
-            }}
-          ></Card>
+          <ConversionCard />
         </Box>
         {children}
       </Box>

@@ -4,18 +4,18 @@ import { wagmiConfig } from '../wagmi.config'
 const CONTRACTS: ContractsConfig<ContractMeta> = {
   tokenManager: {
     42161: {
-      address: '0xa86a14E9E237bA939fBDA8735d8709FAa82173ef',
+      address: '0x0B6c49a0778CA5F28CAEAB2f8Fae476C24EC0c62',
     },
     421613: {
-      address: '0xa86a14E9E237bA939fBDA8735d8709FAa82173ef',
+      address: '0x0B6c49a0778CA5F28CAEAB2f8Fae476C24EC0c62',
     },
   },
   staking: {
     42161: {
-      address: '0xc881e4bE73945Bc627DD731745916c6FCCe49bE9',
+      address: '0xffea7e8CF441277d580CD60307A6b3cFB9719C57',
     },
     421613: {
-      address: '0xc881e4bE73945Bc627DD731745916c6FCCe49bE9',
+      address: '0xffea7e8CF441277d580CD60307A6b3cFB9719C57',
     },
   },
   camelotPair: {

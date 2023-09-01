@@ -20,7 +20,7 @@ type ApproveButtonProps = Parameters<typeof ConnectButton>[0] & {
   loadingText?: string
   label: string
   error?: Error | null
-  onSuccess?: (hash?: `0x${string}`) => void
+  onSuccess?: (hash: `0x${string}`) => void
   skipApproval?: boolean
 }
 
@@ -85,15 +85,14 @@ export const ApproveButton = ({
         details?: string
       }
 
+      const key = `approve-error-${Date.now()}`
+
       enqueueSnackbar(details, {
-        key: 'approve-error',
+        key,
         variant: 'error',
         autoHideDuration: 20000,
         action: (
-          <IconButton
-            onClick={() => closeSnackbar?.('approve-error')}
-            size="small"
-          >
+          <IconButton onClick={() => closeSnackbar?.(key)} size="small">
             <CloseOutlined />
           </IconButton>
         ),

@@ -54,14 +54,18 @@ export const TransactionButton = (props: TransactionButtonProps) => {
 
   const execute = async () => {
     if (props.config?.enabled !== false) {
+      let hash: `0x${string}` | undefined = undefined
+
       try {
         const result = await writeAsync?.()
 
-        if (result?.hash) {
-          onSuccess?.(result?.hash)
-        }
+        hash = result?.hash
       } catch (error) {
         onFail?.(error as Error)
+      }
+
+      if (hash !== undefined) {
+        onSuccess?.(hash)
       }
     }
   }
