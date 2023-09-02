@@ -4,7 +4,7 @@ import { wagmiConfig } from '../wagmi.config'
 const CONTRACTS: ContractsConfig<ContractMeta> = {
   tokenManager: {
     42161: {
-      address: '0x0B6c49a0778CA5F28CAEAB2f8Fae476C24EC0c62',
+      address: '0x0', // @TODO: replace once deployed
     },
     421613: {
       address: '0x0B6c49a0778CA5F28CAEAB2f8Fae476C24EC0c62',
@@ -12,7 +12,7 @@ const CONTRACTS: ContractsConfig<ContractMeta> = {
   },
   staking: {
     42161: {
-      address: '0xffea7e8CF441277d580CD60307A6b3cFB9719C57',
+      address: '0x0', // @TODO: replace once deployed
     },
     421613: {
       address: '0xffea7e8CF441277d580CD60307A6b3cFB9719C57',

@@ -4,7 +4,7 @@ import { wagmiConfig } from '../wagmi.config'
 const TOKENS: ContractsConfig<TokenMeta> = {
   PRY: {
     42161: {
-      address: '0xE4F69E0Ce7AbE7d56695b6661D1da57eCD0CB7c3',
+      address: '0x1824a51c106efc27d35a74efb56d9bf54ddb22d4',
       symbol: 'PRY',
       decimals: 18,
     },
@@ -16,7 +16,7 @@ const TOKENS: ContractsConfig<TokenMeta> = {
   },
   vPRY: {
     42161: {
-      address: '0x85E9C15c77Cf42c84A00156De97280945B270cd0',
+      address: '0x0', // @TODO: replace once deployed
       symbol: 'vPRY',
       decimals: 18,
     },
