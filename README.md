@@ -1,29 +1,70 @@
-This is a [RainbowKit](https://rainbowkit.com) + [wagmi](https://wagmi.sh) + [Next.js](https://nextjs.org/) project bootstrapped with [`create-rainbowkit`](https://github.com/rainbow-me/rainbowkit/tree/main/packages/create-rainbowkit).
+![Logo](https://s2.coinmarketcap.com/static/img/coins/64x64/23933.png)
 
-## Getting Started
+# Perpy Staking UI
 
-First, run the development server:
+A web3 decentralized app (dApp) to manage PRY token staking and vesting.
+
+## Tech Stack
+
+Typescript
+React
+NextJS
+Material-ui
+RainbowKit
+Wagmi
+Viem
+
+## Installation
+
+Install dependencies
 
 ```bash
-npm run dev
+  yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup environment variables
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+  touch .env.local
+```
 
-## Learn More
+Edit `.env.local` file and set up the folowing variables:
+
+```
+# Set true to enable Arbitrum Goerli testnet
+NEXT_PUBLIC_ENABLE_TESTNETS=
+# Alchemy API key
+NEXT_PUBLIC_ALCHEMY_API_KEY=
+```
+
+## Run
+
+Run dev environment
+
+```bash
+  yarn dev
+```
+
+Build
+
+```bash
+  yarn build
+```
+
+Run production environment
+
+```bash
+  yarn start
+```
+
+## Deployment
+
+Vercel deployment URL: [perpy-staking-ui-muvy.vercel.app](https://perpy-staking-ui-muvy.vercel.app/)
+
+## Learn more
 
 To learn more about this stack, take a look at the following resources:
 
 - [RainbowKit Documentation](https://rainbowkit.com) - Learn how to customize your wallet connection flow.
 - [wagmi Documentation](https://wagmi.sh) - Learn how to interact with Ethereum.
 - [Next.js Documentation](https://nextjs.org/docs) - Learn how to build a Next.js application.
-
-You can check out [the RainbowKit GitHub repository](https://github.com/rainbow-me/rainbowkit) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
