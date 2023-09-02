@@ -31,6 +31,8 @@ Install dependencies
 Edit `.env.local` file and set up the folowing variables:
 
 ```
+# Set-up a project id on [WalletConnect Cloud](https://cloud.walletconnect.com/sign-in) to use here
+NEXT_PUBLIC_PROJECT_ID=
 # Set true to enable Arbitrum Goerli testnet
 NEXT_PUBLIC_ENABLE_TESTNETS=
 # Alchemy API key
