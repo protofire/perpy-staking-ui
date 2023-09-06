@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useCallback } from 'react'
 import {
   useAccount,
   useChainId,
@@ -52,7 +52,7 @@ export const TransactionButton = (props: TransactionButtonProps) => {
 
   const { isLoading, writeAsync, error: writeError } = useContractWrite(config)
 
-  const execute = async () => {
+  const execute = useCallback(async () => {
     if (props.config?.enabled !== false) {
       let hash: `0x${string}` | undefined = undefined
 
@@ -68,7 +68,7 @@ export const TransactionButton = (props: TransactionButtonProps) => {
         onSuccess?.(hash)
       }
     }
-  }
+  }, [props.config?.enabled, writeAsync, onFail, onSuccess])
 
   return (
     <>

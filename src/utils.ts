@@ -79,11 +79,12 @@ export function decodeLogs(args: {
 
 export const formatCurrency = (
   value: number | string | BigNumber,
-  currency?: string,
+  currency: string | undefined = '',
+  decimalPlaces: number = 3,
 ) => {
   const val =
     value instanceof BigNumber
-      ? value.decimalPlaces(3).toNumber()
+      ? value.decimalPlaces(decimalPlaces).toNumber()
       : Number(value)
 
   if (currency === 'USD') {

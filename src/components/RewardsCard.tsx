@@ -46,7 +46,11 @@ export const RewardsCard = () => {
         functionName: 'claimVesting',
         args: [activeIndexes],
         enabled:
-          !!account.address && !activeIndexesIsLoading && !activeIndexesIsError,
+          !!account.address &&
+          !activeIndexesIsLoading &&
+          !activeIndexesIsError &&
+          activeIndexes !== undefined &&
+          activeIndexes.length > 0,
       }
     : {
         address: STAKING_CONTRACT_ADDRESS,
@@ -72,7 +76,7 @@ export const RewardsCard = () => {
         title="Claimable"
         value={isClient ? formatCurrency(claimableUsd, 'USD') : '$0'}
         subValue={
-          isClient ? formatCurrency(claimable, PRY_TOKEN.symbol) : '0 PRY'
+          isClient ? formatCurrency(claimable, PRY_TOKEN.symbol, 8) : '0 PRY'
         }
         sx={{
           marginBottom: '32px',
