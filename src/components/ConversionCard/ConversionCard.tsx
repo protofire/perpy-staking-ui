@@ -192,7 +192,7 @@ export const ConversionCard = () => {
         amount={value}
         fullWidth
         loadingText="Converting..."
-        spenderAddress={config.address}
+        spenderAddress={TOKEN_MANAGER_CONTRACT_ADDRESS}
         onSuccess={handleSuccess}
         disabled={!config.enabled}
       />
